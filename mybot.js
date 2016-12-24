@@ -21,7 +21,21 @@ const adamisms = [
   `loser\nhahaha`,
   `i'm in what paypal you want, money or Bj's`,
   `IMAGINE ALL THE STUPID SHIT I COULD ADD TO THESE CONVERSATIONS!!`,
-  `NERDGASM!!!!`
+  `NERDGASM!!!!`,
+  `PICS OF BOOBIES OR IT DIDNT HAPPEN`,
+  `GO @Netgazernine WAY TO NOT DIE!!!!!!!`,
+  `BABY METAL:metal::astonished::metal:`,
+  `weekend of Pokemon and Stardew Valley here I come`,
+  `Want plaaaaaaay`,
+  `SEVEN DAYS BOYS`,
+  `FUUUUUUUUUUUUUUUUCK`,
+  `Wat`,
+  `METAPHORE`,
+  `i'd still be shameless and have a stash of stolen props cause i'm a CUNT`,
+  `@here so who's got a dry dick needing sucked that wants to give me a ride?!`,
+  `gubu dudu, you mean butt face?`,
+  `Jesse is the female equivalent to satyrs`,
+  `Funeral? Who are we killing? If it's me I'd be OK with that`
 ];
 
 const getRandomMessage = () => {
