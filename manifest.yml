@@ -1,0 +1,4 @@
+---
+name: adam-bot
+command: node mybot.js
+buildpack: https://github.com/cloudfoundry/buildpack-nodejs.git
