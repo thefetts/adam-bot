@@ -35,11 +35,28 @@ const adamisms = [
   `@here so who's got a dry dick needing sucked that wants to give me a ride?!`,
   `gubu dudu, you mean butt face?`,
   `Jesse is the female equivalent to satyrs`,
-  `Funeral? Who are we killing? If it's me I'd be OK with that`
+  `Funeral? Who are we killing? If it's me I'd be OK with that`,
+  `Who is that, Terry Schiavo?`,
+  `It slices, it dices, it makes your imperial dick hard`,
+  `HEY DUMBASSES!!! YOU GUYS ARE THE BEST!!!`,
+  `MERRY CHRISTMAS YOU SHIT POTS!!!`,
+  `I LITERALLY THINK HIGHLY OF YOU!!!`,
+  `GOOD LUCK you stupid dummy GARBAGE MEN`,
+  `Also Walter says HI`
 ];
 
+let availableAdamisms = [];
+
 const getRandomMessage = () => {
-  return adamisms[Math.floor(Math.random()*adamisms.length)];
+  if(!availableAdamisms.length)
+    availableAdamisms = adamisms.slice(0);
+
+  const index = getRandomIndex(availableAdamisms);
+  return availableAdamisms.splice(index, 1)[0];
+};
+
+const getRandomIndex = (arr) => {
+  return Math.floor(Math.random()*arr.length);
 };
 
 bot.on('message', msg => {
