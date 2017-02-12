@@ -42,7 +42,15 @@ const adamisms = [
   `MERRY CHRISTMAS YOU SHIT POTS!!!`,
   `I LITERALLY THINK HIGHLY OF YOU!!!`,
   `GOOD LUCK you stupid dummy GARBAGE MEN`,
-  `Also Walter says HI`
+  `Also Walter says HI`,
+  `I transformed into a dog and had sex`,
+  `Happy chinese new year... the year of the COCK!`,
+  `Whoa, it's like really bright out you guys...`,
+  `i'm gonna make a quick cup of tea then i'll be back`,
+  `DONT GIVE A SHIT I'LL SLEEP ON A HOMELESS PERSON`,
+  `Sitting in a vinegar based brine flavored with dill for 8 months?`,
+  `I had a dream that we we're all baseball players on a team and Tyler was the pitcher and he tucked his jeans way down into his big long socks up to his Knickerbockers and I was the shitty catcher and we lost the game cause I missed running down a tag up third base for some reason, also our locker room was in a video rental store...`,
+  `WHAT'S UP PROFESSIONAL BONER ACCEPTERS!`
 ];
 
 let availableAdamisms = [];
