@@ -50,7 +50,12 @@ const adamisms = [
   `DONT GIVE A SHIT I'LL SLEEP ON A HOMELESS PERSON`,
   `Sitting in a vinegar based brine flavored with dill for 8 months?`,
   `I had a dream that we we're all baseball players on a team and Tyler was the pitcher and he tucked his jeans way down into his big long socks up to his Knickerbockers and I was the shitty catcher and we lost the game cause I missed running down a tag up third base for some reason, also our locker room was in a video rental store...`,
-  `WHAT'S UP PROFESSIONAL BONER ACCEPTERS!`
+  `WHAT'S UP PROFESSIONAL BONER ACCEPTERS!`,
+  `FUCK YOU NERDS I AM THE BEST`,
+  `I HAVE FFFFIIIINNNNAAALLLLYYYY`,
+  `UNLOCKED ALL THE SHIPS IN FTL`,
+  `SUCK ON MY STUPID SALAMI AUTISM!]`,
+  `adam!\nFuck me`
 ];
 
 let availableAdamisms = [];
