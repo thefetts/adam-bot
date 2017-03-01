@@ -55,7 +55,11 @@ const adamisms = [
   `I HAVE FFFFIIIINNNNAAALLLLYYYY`,
   `UNLOCKED ALL THE SHIPS IN FTL`,
   `SUCK ON MY STUPID SALAMI AUTISM!]`,
-  `adam!\nFuck me`
+  `adam!\nFuck me`,
+  `I'm gonna save that for later :kissing_heart::eggplant::eggplant::eggplant:`,
+  `It's 56FFF or GTFO`,
+  `what the fuck did you just say?!`,
+  `that better not be some insult to my FUTUTE FUCKING WIAFUUUUU`
 ];
 
 let availableAdamisms = [];
