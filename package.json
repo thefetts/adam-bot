@@ -3,6 +3,8 @@
     "node": "6.x.x"
   },
   "dependencies": {
-    "discord.js": "^10.0.1"
+    "discord.js": "^10.0.1",
+    "mysql": "^2.13.0",
+    "sequelize": "^3.30.2"
   }
 }
