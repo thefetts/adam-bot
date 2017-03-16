@@ -5,7 +5,7 @@
 1. `node app/bot.js`
 
 ## Running tests
-1. `jasmine`
+1. `npm test`
 
 ## Setting up the environment
 The app currently needs two pieces of information from the environment:
