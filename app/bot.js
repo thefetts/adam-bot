@@ -13,6 +13,6 @@ const Adamism = sequelize.define(
 Adamism.sync().then(function () {
   Adamism.findAll().then(adamisms => {
     const allAdamisms = adamisms.map(adamism => adamism.message);
-    new Adam(allAdamisms).wakeUp();
+    new Adam(allAdamisms).wakeUp(process.env.token);
   });
 });
