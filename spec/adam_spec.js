@@ -48,101 +48,6 @@ describe('Adam', () => {
 
       expect(loginSpy).toHaveBeenCalledWith(token);
     });
-
-    describe('messaging', () => {
-      let sendMessageSpy;
-      let adam;
-
-      beforeEach(() => {
-        message = {
-          content: '',
-          channel: {sendMessage() {}},
-          author: {username: ''}
-        };
-
-        spyOn(mockClient, 'on').and.callFake((str, cb) => {
-          if (str === 'message') messageHandler = cb;
-        });
-        sendMessageSpy = spyOn(message.channel, 'sendMessage');
-
-        adam = wakeUpNewAdam();
-      });
-
-      describe('!adam', () => {
-        it('ignores messages that do not start with !adam', () => {
-          sendMessage('anything else');
-          expect(sendMessageSpy).not.toHaveBeenCalled();
-        });
-
-        it('responds to messages that start with !adam', () => {
-          sendMessage('!adam');
-          expect(sendMessageSpy).toHaveBeenCalledWith('HAHAHA');
-        });
-
-        ['!ADAM', '!adAM', '!AdAm', '!ADAm', '!aDaM'].forEach(msg => {
-          it(`is case insensitive and works with '${msg}'`, () => {
-            sendMessage(msg);
-            expect(sendMessageSpy).toHaveBeenCalledWith('HAHAHA');
-          });
-        });
-      });
-
-      describe('!adam save that', () => {
-        describe(`when Adam hasn't said anything yet`, () => {
-          it('sends a friendly error message', () => {
-            sendMessage('WHAT THE FUCK IS A BEE?', 'mercy');
-            sendMessage('!adam save that');
-
-            expect(sendMessageSpy).toHaveBeenCalledWith(`I AIN'T GOT SHIT TO SAVE DUMMY`)
-          })
-        });
-
-        describe('when Adam has said something', () => {
-          it('saves the quote to the database', () => {
-            const createSpy = spyOn(mockAdamism, 'create').and.callFake((obj, cb) => cb());
-            sendMessage('WHAT THE FUCK IS A BEE?', 'TastyMeaty');
-            sendMessage('!adam save that');
-
-            expect(createSpy).toHaveBeenCalledWith({message: 'WHAT THE FUCK IS A BEE?'}, jasmine.any(Function));
-          });
-
-          it('replies a friendly message if save succeeds', () => {
-            spyOn(mockAdamism, 'create').and.callFake((obj, cb) => cb());
-            sendMessage('WHAT THE FUCK IS A BEE?', 'TastyMeaty');
-            sendMessage('!adam save that');
-
-            expect(sendMessageSpy).toHaveBeenCalledWith('"WHAT THE FUCK IS A BEE?" saved to adam-bot!')
-          });
-
-          it('does not reply if save fails', () => {
-            spyOn(mockAdamism, 'create').and.callFake(() => {});
-            sendMessage('WHAT THE FUCK IS A BEE?', 'TastyMeaty');
-            sendMessage('!adam save that');
-
-            expect(sendMessageSpy).not.toHaveBeenCalled();
-          });
-
-          it('does not let you save the same thing twice', () => {
-            const createSpy = spyOn(mockAdamism, 'create').and.callFake((obj, cb) => cb());
-            sendMessage('WHAT THE FUCK IS A BEE?', 'TastyMeaty');
-            sendMessage('!adam save that');
-            sendMessage('!adam save that');
-
-            expect(createSpy).toHaveBeenCalledTimes(1);
-          });
-
-          it('adds the saved quote to the in memory list as well', () => {
-            const createSpy = spyOn(mockAdamism, 'create').and.callFake((obj, cb) => cb());
-            sendMessage('WHAT THE FUCK IS A BEE?', 'TastyMeaty');
-            sendMessage('!adam save that');
-
-            const first = adam.getRandomMessage();
-            const second = adam.getRandomMessage();
-            expect([first, second].sort()).toEqual(['HAHAHA', 'WHAT THE FUCK IS A BEE?']);
-          });
-        });
-      });
-    });
   });
 
   describe('getRandomMessage', () => {
@@ -181,6 +86,113 @@ describe('Adam', () => {
       }
     });
   });
+
+  describe('event listeners', () => {
+    let sendMessageSpy;
+    let adam;
+
+    beforeEach(() => {
+      message = {
+        content: '',
+        channel: {name: '', sendMessage() {}},
+        author: {username: ''}
+      };
+
+      spyOn(mockClient, 'on').and.callFake((str, cb) => {
+        if (str === 'message') messageHandler = cb;
+      });
+      sendMessageSpy = spyOn(message.channel, 'sendMessage');
+
+      adam = wakeUpNewAdam();
+    });
+
+    describe('!adam', () => {
+      it('ignores messages that do not start with !adam', () => {
+        sendMessage('anything else');
+        expect(sendMessageSpy).not.toHaveBeenCalled();
+      });
+
+      it('responds to messages that start with !adam', () => {
+        sendMessage('!adam');
+        expect(sendMessageSpy).toHaveBeenCalledWith('HAHAHA');
+      });
+
+      ['!ADAM', '!adAM', '!AdAm', '!ADAm', '!aDaM'].forEach(msg => {
+        it(`is case insensitive and works with '${msg}'`, () => {
+          sendMessage(msg);
+          expect(sendMessageSpy).toHaveBeenCalledWith('HAHAHA');
+        });
+      });
+    });
+
+    describe('!adam save that', () => {
+      describe(`when Adam hasn't said anything yet`, () => {
+        it('sends a friendly error message', () => {
+          sendMessage('WHAT THE FUCK IS A BEE?', 'mercy');
+          sendMessage('!adam save that');
+
+          expect(sendMessageSpy).toHaveBeenCalledWith(`I AIN'T GOT SHIT TO SAVE DUMMY`);
+        });
+      });
+
+      describe('when Adam has said something', () => {
+        it('saves the quote to the database', () => {
+          const createSpy = spyOn(mockAdamism, 'create').and.callFake((obj, cb) => cb());
+          sendMessage('WHAT THE FUCK IS A BEE?', 'TastyMeaty');
+          sendMessage('!adam save that');
+
+          expect(createSpy).toHaveBeenCalledWith({message: 'WHAT THE FUCK IS A BEE?'}, jasmine.any(Function));
+        });
+
+        it('replies a friendly message if save succeeds', () => {
+          spyOn(mockAdamism, 'create').and.callFake((obj, cb) => cb());
+          sendMessage('WHAT THE FUCK IS A BEE?', 'TastyMeaty');
+          sendMessage('!adam save that');
+
+          expect(sendMessageSpy).toHaveBeenCalledWith('"WHAT THE FUCK IS A BEE?" saved to adam-bot!')
+        });
+
+        it('does not reply if save fails', () => {
+          spyOn(mockAdamism, 'create').and.callFake(() => {});
+          sendMessage('WHAT THE FUCK IS A BEE?', 'TastyMeaty');
+          sendMessage('!adam save that');
+
+          expect(sendMessageSpy).not.toHaveBeenCalled();
+        });
+
+        it('does not let you save the same thing twice', () => {
+          const createSpy = spyOn(mockAdamism, 'create').and.callFake((obj, cb) => cb());
+          sendMessage('WHAT THE FUCK IS A BEE?', 'TastyMeaty');
+          sendMessage('!adam save that');
+          sendMessage('!adam save that');
+
+          expect(createSpy).toHaveBeenCalledTimes(1);
+        });
+
+        it('adds the saved quote to the in memory list as well', () => {
+          const createSpy = spyOn(mockAdamism, 'create').and.callFake((obj, cb) => cb());
+          sendMessage('WHAT THE FUCK IS A BEE?', 'TastyMeaty');
+          sendMessage('!adam save that');
+
+          const first = adam.getRandomMessage();
+          const second = adam.getRandomMessage();
+          expect([first, second].sort()).toEqual(['HAHAHA', 'WHAT THE FUCK IS A BEE?']);
+        });
+      });
+
+      describe('Adam talking in multiple channels', () => {
+        it(`doesn't count if Adam said something in another channel`, () => {
+          sendMessage('WHAT THE FUCK IS A BEE?', 'TastyMeaty', 'WoW');
+
+          sendMessage('!adam save that', 'Jagno', 'Overwatch');
+          expect(sendMessageSpy).toHaveBeenCalledWith(`I AIN'T GOT SHIT TO SAVE DUMMY`);
+
+          sendMessage('!adam save that', 'Jagno', 'WoW');
+          expect(sendMessageSpy).toHaveBeenCalledWith(`"WHAT THE FUCK IS A BEE?" saved to adam-bot!`);
+        });
+      })
+    });
+  });
 });
 
 function wakeUpNewAdam(token) {
@@ -189,9 +201,10 @@ function wakeUpNewAdam(token) {
   return adam;
 }
 
-function sendMessage(msg, username) {
+function sendMessage(msg, username, channel) {
   message.content = msg;
   message.author.username = username || 'Jagno';
+  message.channel.name = channel || 'General';
   messageHandler(message);
 }
 

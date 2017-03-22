@@ -7,7 +7,7 @@ module.exports = class Adam {
 
     this.allAdamisms = [];
     this.availableAdamisms = [];
-    this.lastMessage = '';
+    this.recentMessages = {};
 
     this.adam = new Discord.Client();
     this.adamism = new Adamism(dbUri);
@@ -29,8 +29,8 @@ module.exports = class Adam {
         this.saveThat(msg);
       } else if (text.startsWith('!adam')) {
         msg.channel.sendMessage(this.getRandomMessage());
-      } else if (msg.author.username == 'TastyMeaty') {
-        this.lastMessage = msg.content;
+      } else if (msg.author.username === 'TastyMeaty') {
+        this.recentMessages[msg.channel.name] = msg.content;
       }
     });
 
@@ -40,11 +40,12 @@ module.exports = class Adam {
   }
 
   saveThat(msg) {
-    if (this.lastMessage) {
-      this.adamism.create({message: this.lastMessage}, () => {
-        this.allAdamisms.push(this.lastMessage);
-        msg.channel.sendMessage(`"${this.lastMessage}" saved to adam-bot!`);
-        this.lastMessage = '';
+    const message = this.recentMessages[msg.channel.name];
+    if (message) {
+      this.adamism.create({message: message}, () => {
+        this.allAdamisms.push(message);
+        msg.channel.sendMessage(`"${message}" saved to adam-bot!`);
+        this.recentMessages[msg.channel.name] = '';
       });
     } else {
       msg.channel.sendMessage(`I AIN'T GOT SHIT TO SAVE DUMMY`)
