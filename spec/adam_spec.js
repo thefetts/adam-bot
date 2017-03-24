@@ -75,13 +75,8 @@ describe('Adam', () => {
         // Filter them out of the list so we know what message has
         // not yet come through
         const lastAvailableQuote = quotes
-          .filter(quote =>
-            quote != first &&
-            quote != second &&
-            quote != third &&
-            quote != fourth
-          )[0];
-
+          .find(quote => ![first, second, third, fourth]
+            .includes(quote));
         expect(adam.getRandomMessage()).toEqual(lastAvailableQuote);
       }
     });
@@ -170,7 +165,7 @@ describe('Adam', () => {
         });
 
         it('adds the saved quote to the in memory list as well', () => {
-          const createSpy = spyOn(mockAdamism, 'create').and.callFake((obj, cb) => cb());
+          spyOn(mockAdamism, 'create').and.callFake((obj, cb) => cb());
           sendMessage('WHAT THE FUCK IS A BEE?', 'TastyMeaty');
           sendMessage('!adam save that');
 
