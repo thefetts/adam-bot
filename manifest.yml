@@ -1,6 +1,6 @@
 ---
 name: adam-bot
-command: node app/bot.js
+command: npm start
 buildpack: https://github.com/cloudfoundry/buildpack-nodejs.git
 health-check-type: none
 no-route: true

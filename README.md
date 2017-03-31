@@ -2,7 +2,7 @@
 1. Install Node with: `brew install node` on a Mac, something less fun elsewhere
 1. `npm install`
 1. Ensure environment variables are set (see below)
-1. `node app/bot.js`
+1. `npm start`
 
 ## Running tests
 1. `npm test`
