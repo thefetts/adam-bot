@@ -30,7 +30,7 @@ module.exports = class MarkovChain {
     let words = 0;
     let nextWord = this.data.__start;
     while (words < 50) {
-      if (!nextWord.filter(x => x !== '').length) break;
+      if (!nextWord.filter(Boolean).length) break;
 
       const word = getRandom(nextWord);
       quote += `${word === ',' ? '' : ' '}${word}`;
