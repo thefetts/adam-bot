@@ -41,16 +41,17 @@ describe('MarkovChain', () => {
       });
     });
 
-    it('downcases the words', () => {
-      const sentence = 'hi there Luke Skywalker man!';
+    it('handles casing issues', () => {
+      const sentence = 'this case and THIS CASE are the same';
       const chain = new MarkovChain(sentence);
       expect(chain.data).toEqual({
-        __start: ['hi'],
-        hi: ['there'],
-        there: ['luke'],
-        luke: ['skywalker'],
-        skywalker: ['man!'],
-        'man!': ['']
+        __start: ['this'],
+        this: ['case', 'CASE'],
+        case: ['and', 'are'],
+        and: ['THIS'],
+        are: ['the'],
+        the: ['same'],
+        same: ['']
       });
     });
 
@@ -107,9 +108,17 @@ describe('MarkovChain', () => {
     it('makes a sentence by following the chain', () => {
       const chain = new MarkovChain('a b c', 'a b d c', 'a d e c');
       const possibilities = ['a b c', 'a b d c', 'a d e c', 'a b d e c', 'a d c'];
-      for(let i = 0; i < 100; i++) {
+      for (let i = 0; i < 100; i++) {
         expect(possibilities).toContain(chain.speak());
       }
     });
+
+    it('handles differing capitalizations', () => {
+      const chain = new MarkovChain('a B c', 'a b D', 'a B D e');
+      const possibilities = ['a B c', 'a b c', 'a B D', 'a b D', 'a b D e', 'a B D e'];
+      for (let i = 0; i < 100; i++) {
+        expect(possibilities).toContain(chain.speak());
+      }
+    })
   });
 });

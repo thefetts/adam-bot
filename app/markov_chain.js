@@ -8,16 +8,18 @@ module.exports = class MarkovChain {
     sentences.forEach(sentence => {
       sentence.split(' ').forEach((word, index, list) => {
         const cleanWord = sanitize(word);
+        const lowerCleanWord = cleanWord.toLowerCase();
+
         if (index === 0)
           chain.__start.push(cleanWord);
 
         if (word.indexOf(',') === word.length - 1) {
-          initLists(chain, cleanWord, ',');
-          chain[cleanWord].push(',');
+          initLists(chain, lowerCleanWord, ',');
+          chain[lowerCleanWord].push(',');
           chain[','].push(nextWord(list, index));
         } else {
-          initLists(chain, cleanWord);
-          chain[cleanWord].push(nextWord(list, index));
+          initLists(chain, lowerCleanWord);
+          chain[lowerCleanWord].push(nextWord(list, index));
         }
 
       });
@@ -30,11 +32,11 @@ module.exports = class MarkovChain {
     let words = 0;
     let nextWord = this.data.__start;
     while (words < 50) {
-      if (!nextWord.filter(Boolean).length) break;
+      if (!nextWord || !nextWord.filter(Boolean).length) break;
 
       const word = getRandom(nextWord);
       quote += `${word === ',' ? '' : ' '}${word}`;
-      nextWord = this.data[word];
+      nextWord = this.data[word.toLowerCase()];
     }
     return quote.trim();
   }
@@ -49,7 +51,7 @@ function nextWord(list, index) {
 }
 
 function sanitize(word) {
-  return word.toLowerCase().replace(/,$/, '');
+  return word.replace(/,$/, '');
 }
 
 function getRandom(arr) {
