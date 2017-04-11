@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const Adamism = require('./adamism.js');
+const MarkovChain = require('./markov_chain.js');
 
 module.exports = class Adam {
   constructor(authToken, dbUri) {
@@ -16,6 +17,7 @@ module.exports = class Adam {
   wakeUp() {
     this.adamism.findAll((allAdamisms => {
       this.allAdamisms = allAdamisms;
+      this.markovChain = new MarkovChain(...allAdamisms);
 
       this.setListeners();
       this.adam.login(this.authToken);
@@ -27,6 +29,8 @@ module.exports = class Adam {
       let text = msg.content.toLowerCase();
       if (text.startsWith('!adam save that')) {
         this.saveThat(msg);
+      } else if (text.startsWith('!adam generate')) {
+        msg.channel.sendMessage(this.markovChain.speak());
       } else if (text.startsWith('!adam')) {
         msg.channel.sendMessage(this.getRandomMessage());
       } else if (msg.author.username === 'TastyMeaty') {

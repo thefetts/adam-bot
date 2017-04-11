@@ -2,6 +2,7 @@ const proxyquire = require('proxyquire');
 let Adam;
 let mockClient;
 let mockAdamism;
+let mockMarkovChain;
 
 let message;
 let messageHandler;
@@ -17,6 +18,10 @@ beforeEach(() => {
     create(obj, cb) { cb(obj); }
   };
 
+  mockMarkovChain = {
+    speak() { return 'A GENERATED MESSAGE BITCHES'; }
+  };
+
   function Adamism() {
     return mockAdamism;
   }
@@ -25,8 +30,13 @@ beforeEach(() => {
     return mockClient
   }
 
+  function MarkovChain() {
+    return mockMarkovChain;
+  }
+
   Adam = proxyquire('../app/adam', {
     'discord.js': {Client},
+    './markov_chain.js': MarkovChain,
     './adamism.js': Adamism
   });
 });
@@ -186,6 +196,13 @@ describe('Adam', () => {
           expect(sendMessageSpy).toHaveBeenCalledWith(`"WHAT THE FUCK IS A BEE?" saved to adam-bot!`);
         });
       })
+    });
+
+    describe('!adam generate', () => {
+      it('uses the MarkovChain to generate a quote and then sends it to the chat', () => {
+        sendMessage('!adam generate');
+        expect(sendMessageSpy).toHaveBeenCalledWith('A GENERATED MESSAGE BITCHES');
+      });
     });
   });
 });
