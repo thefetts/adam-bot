@@ -7,7 +7,7 @@
     "period": ["of"],
     "of": ["civil", "the"],
     "civil": ["war"],
-    "war": [""],
+    "war": [null],
     "rebel": ["spaceships", "spies"],
     "spaceships": [","],
     ",": ["striking", "have", "Rebel", "the", "an", "Princess", "custodian"],
@@ -24,7 +24,7 @@
     "the": ["evil", "battle", "Empire's", "DEATH", "Empire's", "stolen", "galaxy"],
     "evil": ["Galactic"],
     "galactic": ["Empire"],
-    "empire": [""],
+    "empire": [null],
     "during": ["the"],
     "battle": [","],
     "spies": ["managed"],
@@ -47,7 +47,7 @@
     "power": ["to"],
     "destroy": ["an"],
     "entire": ["planet"],
-    "planet": [""],
+    "planet": [null],
     "pursued": ["by"],
     "by": ["the"],
     "sinister": ["agents"],
@@ -68,7 +68,7 @@
     "and": ["restore"],
     "restore": ["freedom"],
     "freedom": ["to"],
-    "galaxy": [""]
+    "galaxy": [null]
   },
   "5": {
     "__start": ["It", "Although", "Evading", "The"],
@@ -79,7 +79,7 @@
     "time": ["for"],
     "for": ["the"],
     "the": ["Rebellion", "Death", "Rebel", "galaxy", "dreaded", "remote", "evil", "far"],
-    "rebellion": [""],
+    "rebellion": [null],
     "although": ["the"],
     "death": ["Star"],
     "star": ["has"],
@@ -101,7 +101,7 @@
     "pursued": ["them"],
     "them": ["across"],
     "across": ["the"],
-    "galaxy": [""],
+    "galaxy": [null],
     "evading": ["the"],
     "dreaded": ["Imperial"],
     "starfleet": [","],
@@ -120,7 +120,7 @@
     "remote": ["ice", "probes"],
     "ice": ["world"],
     "world": ["of"],
-    "hoth": [""],
+    "hoth": [null],
     "evil": ["lord"],
     "lord": ["Darth"],
     "darth": ["Vader"],
@@ -135,6 +135,6 @@
     "into": ["the"],
     "far": ["reaches"],
     "reaches": ["of"],
-    "space": [""]
+    "space": [null]
   }
 }

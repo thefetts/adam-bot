@@ -12,7 +12,7 @@ describe('MarkovChain', () => {
         is: ['nice', 'warm'],
         nice: ['that'],
         that: ['it'],
-        warm: ['']
+        warm: [null]
       });
     });
 
@@ -22,7 +22,7 @@ describe('MarkovChain', () => {
       expect(chain.data).toEqual({
         __start: ['it'],
         it: ['is', 'is'],
-        is: ['what', ''],
+        is: ['what', null],
         what: ['it']
       })
     });
@@ -37,7 +37,7 @@ describe('MarkovChain', () => {
         and: ['it', 'it'],
         will: ['always'],
         always: ['be'],
-        be: ['']
+        be: [null]
       });
     });
 
@@ -51,7 +51,7 @@ describe('MarkovChain', () => {
         and: ['THIS'],
         are: ['the'],
         the: ['same'],
-        same: ['']
+        same: [null]
       });
     });
 
@@ -61,7 +61,7 @@ describe('MarkovChain', () => {
       expect(chain.data).toEqual({
         __start: ['it'],
         it: ['is', 'is'],
-        is: [',', ''],
+        is: [',', null],
         ',': ['as', 'what'],
         as: ['always'],
         always: [','],
@@ -76,8 +76,8 @@ describe('MarkovChain', () => {
         this: ['will', 'work'],
         will: ['always', 'this'],
         always: ['work'],
-        work: ['', 'today'],
-        today: ['']
+        work: [null, 'today'],
+        today: [null]
       });
     });
 
@@ -119,6 +119,21 @@ describe('MarkovChain', () => {
       for (let i = 0; i < 100; i++) {
         expect(possibilities).toContain(chain.speak());
       }
-    })
+    });
+
+    it('handles words that could end or continue', () => {
+      const chain = new MarkovChain('a b', 'a b c');
+      const possibilities = ['a b', 'a b c'];
+      for (let i = 0; i < 20; i++) {
+        expect(possibilities).toContain(chain.speak());
+      }
+    });
+
+    it('stops at 50 words', () => {
+      const chain = new MarkovChain('a a a a a a a a a a a a a a a a a a a a a a a a a');
+      for(let i = 0; i < 100; i++) {
+        expect(chain.speak().split(' ').length).toBeLessThan(51);
+      }
+    });
   });
 });

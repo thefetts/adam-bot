@@ -1,59 +1,52 @@
 module.exports = class MarkovChain {
   constructor(...sentences) {
-    this.data = this.makeChain(sentences);
-  }
-
-  makeChain(sentences) {
-    const chain = {__start: []};
-    sentences.forEach(sentence => {
-      sentence.split(' ').forEach((word, index, list) => {
-        const cleanWord = sanitize(word);
-        const lowerCleanWord = cleanWord.toLowerCase();
-
-        if (index === 0)
-          chain.__start.push(cleanWord);
-
-        if (word.indexOf(',') === word.length - 1) {
-          initLists(chain, lowerCleanWord, ',');
-          chain[lowerCleanWord].push(',');
-          chain[','].push(nextWord(list, index));
-        } else {
-          initLists(chain, lowerCleanWord);
-          chain[lowerCleanWord].push(nextWord(list, index));
-        }
-
-      });
-    });
-    return chain;
+    this.data = makeChain(sentences);
   }
 
   speak() {
-    let quote = '';
-    let words = 0;
-    let nextWord = this.data.__start;
-    while (words < 50) {
-      if (!nextWord || !nextWord.filter(Boolean).length) break;
+    let quote = '',
+      words = 0,
+      nextWord = this.data.__start;
 
-      const word = getRandom(nextWord);
-      quote += `${word === ',' ? '' : ' '}${word}`;
+    while (words < 50) {
+      const word = nextWord[Math.floor(Math.random() * nextWord.length)];
+      if (!word) break;
+
+      quote += (word === ',' ? '' : ' ') + word;
       nextWord = this.data[word.toLowerCase()];
+      words++;
     }
     return quote.trim();
   }
 };
 
-function initLists(obj, ...keys) {
-  keys.forEach(key => { if (!obj[key]) obj[key] = [] });
+const regexp = /,$/;
+
+function makeChain(sentences) {
+  const chain = {__start: []};
+  sentences.forEach(sentence => {
+    sentence.split(' ').forEach((word, index, list) => {
+      const cleanWord = sanitize(word);
+      if (index === 0) chain.__start.push(cleanWord);
+
+      const lowerCleanWord = cleanWord.toLowerCase();
+      const nextWord = list.length > index + 1 ? sanitize(list[index + 1]) : null;
+      if (word.match(regexp)) {
+        push(chain, lowerCleanWord, ',');
+        push(chain, ',', nextWord);
+      } else {
+        push(chain, lowerCleanWord, nextWord);
+      }
+    });
+  });
+  return chain;
 }
 
-function nextWord(list, index) {
-  return list.length > index + 1 ? sanitize(list[index + 1]) : '';
+function push(obj, key, entry) {
+  if(!obj[key]) obj[key] = [];
+  obj[key].push(entry);
 }
 
 function sanitize(word) {
-  return word.replace(/,$/, '');
-}
-
-function getRandom(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
+  return word.replace(regexp, '');
 }
