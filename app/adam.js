@@ -3,8 +3,10 @@ const Adamism = require('./adamism.js');
 const MarkovChain = require('./markov_chain.js');
 
 module.exports = class Adam {
-  constructor(authToken, dbUri) {
+  constructor(authToken, dbUri, chaosMode, delay) {
     this.authToken = authToken;
+    this.chaosMode = chaosMode;
+    this.delay = delay;
 
     this.allAdamisms = [];
     this.availableAdamisms = [];
@@ -26,6 +28,8 @@ module.exports = class Adam {
 
   setListeners() {
     this.adam.on('message', msg => {
+      if (this.chaosMode) this.projectMayhem(msg);
+
       let text = msg.content.toLowerCase();
       if (text.startsWith('!adam save that')) {
         this.saveThat(msg);
@@ -41,6 +45,21 @@ module.exports = class Adam {
     this.adam.on('ready', () => {
       console.log('WOKE UP AND READY TO ROCK');
     });
+  }
+
+  projectMayhem(msg) {
+    if (this.timeout) clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+      this.chaosMode = false;
+      this.sendMessage(msg, `ssage(msg, this.getRandomMessage());
+      } else if (msg.author.username === 'TastyMeaty') {
+        this.recentMessages[msg.channel.name] = msg.content;
+      }
+    });
+
+    this.adam.on('ready', () => {
+      console.log('WOKE `);
+    }, this.delay);
   }
 
   saveThat(msg) {
