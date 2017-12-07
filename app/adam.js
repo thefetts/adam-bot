@@ -30,9 +30,9 @@ module.exports = class Adam {
       if (text.startsWith('!adam save that')) {
         this.saveThat(msg);
       } else if (text.startsWith('!adam generate')) {
-        msg.channel.sendMessage(this.markovChain.speak());
+        this.sendMessage(msg, this.markovChain.speak());
       } else if (text.startsWith('!adam')) {
-        msg.channel.sendMessage(this.getRandomMessage());
+        this.sendMessage(msg, this.getRandomMessage());
       } else if (msg.author.username === 'TastyMeaty') {
         this.recentMessages[msg.channel.name] = msg.content;
       }
@@ -48,11 +48,11 @@ module.exports = class Adam {
     if (message) {
       this.adamism.create({message: message}, () => {
         this.allAdamisms.push(message);
-        msg.channel.sendMessage(`"${message}" saved to adam-bot!`);
+        this.sendMessage(msg, `"${message}" saved to adam-bot!`);
         this.recentMessages[msg.channel.name] = '';
       });
     } else {
-      msg.channel.sendMessage(`I AIN'T GOT SHIT TO SAVE DUMMY`)
+      this.sendMessage(msg, `I AIN'T GOT SHIT TO SAVE DUMMY`)
     }
   }
 
@@ -62,6 +62,11 @@ module.exports = class Adam {
 
     const index = getRandomIndex(this.availableAdamisms);
     return this.availableAdamisms.splice(index, 1)[0];
+  }
+
+  sendMessage(msg, text) {
+    console.log(text);
+    msg.channel.sendMessage(text);
   }
 };
 
