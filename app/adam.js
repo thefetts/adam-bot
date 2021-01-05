@@ -22,7 +22,6 @@ module.exports = class Adam {
       this.markovChain = new MarkovChain(...allAdamisms);
 
       this.setListeners();
-      console.log('authToken: ' + this.authToken);
       this.adam.login(this.authToken);
     }));
   }
