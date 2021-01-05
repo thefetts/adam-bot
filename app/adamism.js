@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 
 module.exports = class Adamism {
   constructor(dbUri) {
-    const sequelize = new Sequelize(dbUri, null, null, { dialect: 'mysql' });
+    const sequelize = new Sequelize(dbUri);
 
     this.model = sequelize.define(
       'adamism',
