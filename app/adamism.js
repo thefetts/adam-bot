@@ -4,14 +4,14 @@ module.exports = class Adamism {
   constructor(dbUri) {
     const sequelize = new Sequelize(dbUri);
     sequelize.query(`
-CREATE TABLE IF NOT EXISTS \`adamism\` (
-  \`id\` int(11) NOT NULL,
-  \`message\` text COLLATE utf8_unicode_ci,
-  \`createdAt\` datetime NOT NULL,
-  \`updatedAt\` datetime NOT NULL
+CREATE TABLE IF NOT EXISTS adamism (
+  id int(11) NOT NULL,
+  message text COLLATE utf8_unicode_ci,
+  createdAt datetime NOT NULL,
+  updatedAt datetime NOT NULL
 );
 
-INSERT INTO \`adamism\` (\`id\`, \`message\`, \`createdAt\`, \`updatedAt\`) VALUES
+INSERT INTO adamism (id, message, createdAt, updatedAt) VALUES
 (4, 'WHATS UP BUTTHOLES', '2017-03-15 22:08:00', '2017-03-15 22:08:00'),
 (7, '@here Hey WHO WANNA PLAY GAEMZ?!??', '2017-03-15 22:08:00', '2017-03-15 22:08:00'),
 (10, 'nostalgia is a double edged sword, it pisses you off when you''re not satisfied but it also fills you up with joy on silly nonsense...', '2017-03-15 22:08:18', '2017-03-15 22:08:18'),
@@ -101,11 +101,11 @@ INSERT INTO \`adamism\` (\`id\`, \`message\`, \`createdAt\`, \`updatedAt\`) VALU
 (283, 'ASS MY WHOLE ASS AUTOCORRET', '2017-11-02 02:48:13', '2017-11-02 02:48:13'),
 (286, 'Hahaha Ben playing with Adam bot again', '2017-11-05 02:51:39', '2017-11-05 02:51:39');
 
-ALTER TABLE \`adamism\`
-  ADD PRIMARY KEY (\`id\`);
+ALTER TABLE adamism
+  ADD PRIMARY KEY (id);
 
-ALTER TABLE \`adamism\`
-  MODIFY \`id\` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=289;
+ALTER TABLE adamism
+  MODIFY id int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=289;
 `)
 
     this.model = sequelize.define(
