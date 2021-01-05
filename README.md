@@ -8,10 +8,6 @@
 1. `npm test`
 
 ## Setting up the environment
-The app currently needs two pieces of information from the environment:
-1. Discord server token:
-
-   `export token=YOUR_VALID_TOKEN`
-1. MySQL connection url. This one is a touch more complicated for now, as it's set automatically by CloudFoundry, so setting it locally looks like this:
-
-   `export VCAP_SERVICES="{\"p-mysql\":[{\"credentials\":{\"uri\":\"YOUR_VALID_URI\"}}]}"`
+The app currently needs two environment variables:
+1. Discord server token: `export DISCORD_TOKEN=...`
+1. MySQL connection url: `export DATABASE_URL=...`
