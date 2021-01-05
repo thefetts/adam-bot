@@ -85,7 +85,7 @@ module.exports = class Adam {
 
   sendMessage(msg, text) {
     console.log(text);
-    msg.channel.sendMessage(text);
+    msg.channel.send(text);
   }
 };
 
