@@ -1,9 +1,0 @@
----
-applications:
-- name: adam-bot
-  command: npm start
-  buildpack: https://github.com/cloudfoundry/buildpack-nodejs.git
-  health-check-type: none
-  no-route: true
-  services:
-  - adamisms

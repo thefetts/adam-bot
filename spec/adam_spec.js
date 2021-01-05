@@ -93,20 +93,20 @@ describe('Adam', () => {
   });
 
   describe('event listeners', () => {
-    let sendMessageSpy;
+    let sendSpy;
     let adam;
 
     beforeEach(() => {
       message = {
         content: '',
-        channel: {name: '', sendMessage() {}},
+        channel: {name: '', send() {}},
         author: {username: ''}
       };
 
       spyOn(mockClient, 'on').and.callFake((str, cb) => {
         if (str === 'message') messageHandler = cb;
       });
-      sendMessageSpy = spyOn(message.channel, 'sendMessage');
+      sendSpy = spyOn(message.channel, 'send');
 
       adam = wakeUpNewAdam();
     });
@@ -114,18 +114,18 @@ describe('Adam', () => {
     describe('!adam', () => {
       it('ignores messages that do not start with !adam', () => {
         sendMessage('anything else');
-        expect(sendMessageSpy).not.toHaveBeenCalled();
+        expect(sendSpy).not.toHaveBeenCalled();
       });
 
       it('responds to messages that start with !adam', () => {
         sendMessage('!adam');
-        expect(sendMessageSpy).toHaveBeenCalledWith('HAHAHA');
+        expect(sendSpy).toHaveBeenCalledWith('HAHAHA');
       });
 
       ['!ADAM', '!adAM', '!AdAm', '!ADAm', '!aDaM'].forEach(msg => {
         it(`is case insensitive and works with '${msg}'`, () => {
           sendMessage(msg);
-          expect(sendMessageSpy).toHaveBeenCalledWith('HAHAHA');
+          expect(sendSpy).toHaveBeenCalledWith('HAHAHA');
         });
       });
     });
@@ -136,7 +136,7 @@ describe('Adam', () => {
           sendMessage('WHAT THE FUCK IS A BEE?', 'mercy');
           sendMessage('!adam save that');
 
-          expect(sendMessageSpy).toHaveBeenCalledWith(`I AIN'T GOT SHIT TO SAVE DUMMY`);
+          expect(sendSpy).toHaveBeenCalledWith(`I AIN'T GOT SHIT TO SAVE DUMMY`);
         });
       });
 
@@ -154,7 +154,7 @@ describe('Adam', () => {
           sendMessage('WHAT THE FUCK IS A BEE?', 'TastyMeaty');
           sendMessage('!adam save that');
 
-          expect(sendMessageSpy).toHaveBeenCalledWith('"WHAT THE FUCK IS A BEE?" saved to adam-bot!')
+          expect(sendSpy).toHaveBeenCalledWith('"WHAT THE FUCK IS A BEE?" saved to adam-bot!')
         });
 
         it('does not reply if save fails', () => {
@@ -162,7 +162,7 @@ describe('Adam', () => {
           sendMessage('WHAT THE FUCK IS A BEE?', 'TastyMeaty');
           sendMessage('!adam save that');
 
-          expect(sendMessageSpy).not.toHaveBeenCalled();
+          expect(sendSpy).not.toHaveBeenCalled();
         });
 
         it('does not let you save the same thing twice', () => {
@@ -190,10 +190,10 @@ describe('Adam', () => {
           sendMessage('WHAT THE FUCK IS A BEE?', 'TastyMeaty', 'WoW');
 
           sendMessage('!adam save that', 'Jagno', 'Overwatch');
-          expect(sendMessageSpy).toHaveBeenCalledWith(`I AIN'T GOT SHIT TO SAVE DUMMY`);
+          expect(sendSpy).toHaveBeenCalledWith(`I AIN'T GOT SHIT TO SAVE DUMMY`);
 
           sendMessage('!adam save that', 'Jagno', 'WoW');
-          expect(sendMessageSpy).toHaveBeenCalledWith(`"WHAT THE FUCK IS A BEE?" saved to adam-bot!`);
+          expect(sendSpy).toHaveBeenCalledWith(`"WHAT THE FUCK IS A BEE?" saved to adam-bot!`);
         });
       })
     });
@@ -201,7 +201,7 @@ describe('Adam', () => {
     describe('!adam generate', () => {
       it('uses the MarkovChain to generate a quote and then sends it to the chat', () => {
         sendMessage('!adam generate');
-        expect(sendMessageSpy).toHaveBeenCalledWith('A GENERATED MESSAGE BITCHES');
+        expect(sendSpy).toHaveBeenCalledWith('A GENERATED MESSAGE BITCHES');
       });
     });
   });
