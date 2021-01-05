@@ -4,15 +4,6 @@ module.exports = class Adamism {
   constructor(dbUri) {
     const sequelize = new Sequelize(dbUri);
     sequelize.query(`
-DROP TABLE adamism;
-
-CREATE TABLE adamism (
-  id int(11) NOT NULL,
-  message text NOT NULL,
-  createdAt datetime,
-  updatedAt datetime
-);
-
 INSERT INTO adamism (message) VALUES
 ('WHATS UP BUTTHOLES'),
 ('@here Hey WHO WANNA PLAY GAEMZ?!??'),
@@ -102,12 +93,6 @@ INSERT INTO adamism (message) VALUES
 ('Just googled schlub top result seems to fit me in the nose'),
 ('ASS MY WHOLE ASS AUTOCORRET'),
 ('Hahaha Ben playing with Adam bot again');
-
-ALTER TABLE adamism
-  ADD PRIMARY KEY (id);
-
-ALTER TABLE adamism
-  MODIFY id int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=289;
 `)
 
     this.model = sequelize.define(
