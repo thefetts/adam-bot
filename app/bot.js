@@ -1,8 +1,7 @@
 const Adam = require('./adam.js');
 
-const vcap_services = JSON.parse(process.env.VCAP_SERVICES);
-const dbUri = vcap_services['p-mysql'][0].credentials.uri;
-const authToken = process.env.token;
+const dbUri = process.env.DATABASE_URL;
+const authToken = process.env.DISCORD_TOKEN;
 const chaosMode = process.env.chaosMode;
 const delay = process.env.delay;
 
