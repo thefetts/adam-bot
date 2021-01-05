@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 module.exports = class Adamism {
   constructor(dbUri) {
     const sequelize = new Sequelize(dbUri);
-    sequelize.query(```
+    sequelize.query(`
 -- phpMyAdmin SQL Dump
 -- version 4.5.0-dev
 -- http://www.phpmyadmin.net
@@ -155,7 +155,7 @@ ALTER TABLE \`adamism\`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-```)
+`)
 
     this.model = sequelize.define(
       'adamism',
