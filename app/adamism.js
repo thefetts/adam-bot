@@ -4,11 +4,13 @@ module.exports = class Adamism {
   constructor(dbUri) {
     const sequelize = new Sequelize(dbUri);
     sequelize.query(`
-CREATE TABLE IF NOT EXISTS adamism (
+DROP TABLE adamism;
+
+CREATE TABLE adamism (
   id int(11) NOT NULL,
-  message text COLLATE utf8_unicode_ci,
-  createdAt datetime NOT NULL,
-  updatedAt datetime NOT NULL
+  message text NOT NULL,
+  createdAt datetime,
+  updatedAt datetime
 );
 
 INSERT INTO adamism (message) VALUES
