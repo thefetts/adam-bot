@@ -4,44 +4,12 @@ module.exports = class Adamism {
   constructor(dbUri) {
     const sequelize = new Sequelize(dbUri);
     sequelize.query(`
--- phpMyAdmin SQL Dump
--- version 4.5.0-dev
--- http://www.phpmyadmin.net
---
--- Host: 192.168.8.210:3306
--- Generation Time: Nov 14, 2017 at 06:19 PM
--- Server version: 10.1.24-MariaDB
--- PHP Version: 5.5.38
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
--- SET time_zone = "+00:00";
-
-
--- /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
--- /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
--- /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
--- /*!40101 SET NAMES utf8 */;
-
---
--- Database: \`cf_8b83d4b4_33cb_4bc8_abc7_b9b1e9d95c7b\`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table \`adamism\`
---
-
 CREATE TABLE IF NOT EXISTS \`adamism\` (
   \`id\` int(11) NOT NULL,
   \`message\` text COLLATE utf8_unicode_ci,
   \`createdAt\` datetime NOT NULL,
   \`updatedAt\` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=289 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table \`adamism\`
---
+);
 
 INSERT INTO \`adamism\` (\`id\`, \`message\`, \`createdAt\`, \`updatedAt\`) VALUES
 (4, 'WHATS UP BUTTHOLES', '2017-03-15 22:08:00', '2017-03-15 22:08:00'),
@@ -133,28 +101,11 @@ INSERT INTO \`adamism\` (\`id\`, \`message\`, \`createdAt\`, \`updatedAt\`) VALU
 (283, 'ASS MY WHOLE ASS AUTOCORRET', '2017-11-02 02:48:13', '2017-11-02 02:48:13'),
 (286, 'Hahaha Ben playing with Adam bot again', '2017-11-05 02:51:39', '2017-11-05 02:51:39');
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table \`adamism\`
---
 ALTER TABLE \`adamism\`
   ADD PRIMARY KEY (\`id\`);
 
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table \`adamism\`
---
 ALTER TABLE \`adamism\`
   MODIFY \`id\` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=289;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 `)
 
     this.model = sequelize.define(
